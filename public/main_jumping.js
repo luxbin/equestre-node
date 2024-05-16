@@ -905,12 +905,17 @@ $(function() {
         if (!currentBody.children().length) {
             return;
         }
+
+        const startlistentry = startlistmap[realtime.num];
+        const horse = horses[startlistentry.horse_idx];
+        const rider = riders[startlistentry.rider_idx];
+
         let currentRiderData = rankings.find(r => r[1] === realtime.num);
         if (!currentRiderData) {
             return;
         }
         $("#current_body").html('');
-        addRow(currentRiderData, currentBody, true, dataClasses);
+        addRow(currentRiderData, currentBody, true, dataClasses, horse, rider, false);
         localizeAll(lang);
     }
 
@@ -934,15 +939,32 @@ $(function() {
         if (!currentBody.children().length) {
             let data = rankings.find(r => r[1] === realtime.num);
             const currentRiderData = data || rankings[0];
-            currentRiderData[2] = eventInfo.modeTeamRelay? getTeamHorses(realtime.num) : horse.name;
-            currentRiderData[3] = eventInfo.modeTeamRelay? getTeamRiders(realtime.num) : `${rider.firstName} ${rider.lastName}`;
+
+            // {
+            //     let v = eventInfo.modeTeamRelay? getTeamHorses(rowData[1]) : `<span>${horse.name}</span>`;
+            //     const arr = [horse.passport, horse.gender, horse.owner, horse.father, horse.mother, horse.fatherOfMother, horse.signalementLabel];
+            //     const filtered = arr.filter(v => v);
+            //     const additional = `<span class="font-light">${filtered.join("/")}</span>`;
+            //     v = `${v}<br>${additional}`;
+            //     currentRiderData[2] = v;
+            // }
+
+            // {
+            //     let v = eventInfo.modeTeamRelay? getTeamRiders(rowData[1]) : `<span>${rider.firstName} ${rider.lastName}</span>`;
+            //     const arr = [rider.nation, rider.city, rider.license, rider.club];
+            //     const filtered = arr.filter(v => v);
+            //     const additional = `<span class="font-light">${filtered.join("/")}</span>`;
+            //     v = `${v}<br>${additional}`;
+            //     currentRiderData[3] = v;
+            // }
+
             if (!data) {
                 const l = currentRiderData.length;
                 for (let i = 4; i < l; i++) {
                     currentRiderData[i] = '';
                 }
             }
-            currentRider = addRow(currentRiderData, currentBody, true, dataClasses);
+            currentRider = addRow(currentRiderData, currentBody, true, dataClasses, horse, rider, false);
         }
 
         const jumpoffNumber = eventInfo.jumpoffNumber;
@@ -960,14 +982,29 @@ $(function() {
         }
 
         if (horse !== undefined) {
-            currentRider.children("td:nth-child(3)").html(eventInfo.modeTeamRelay? getTeamHorses(realtime.num) : `<span>${horse.name}</span>`);
+
+            let v = eventInfo.modeTeamRelay? getTeamHorses(rowData[1]) : `<span>${horse.name}</span>`;
+            const arr = [horse.passport, horse.gender, horse.owner, horse.father, horse.mother, horse.fatherOfMother, horse.signalementLabel];
+            const filtered = arr.filter(v => v);
+            const additional = `<span class="font-light">${filtered.join("/")}</span>`;
+            v = `${v}<br>${additional}`;
+
+            currentRider.children("td:nth-child(3)").html(v);
         } else if(!eventInfo.modeTeamRelay) {
             currentRider.children("td:nth-child(3)").html("&nbsp");
         }
         currentRider.children("td:nth-child(3)").addClass("bg-white text-color-black");
 
         if (rider !== undefined) {
-            currentRider.children("td:nth-child(4)").html(eventInfo.modeTeamRelay? getTeamRiders(realtime.num) : `<span>${rider.firstName} ${rider.lastName}</span>`);
+            
+            let v = eventInfo.modeTeamRelay? getTeamRiders(rowData[1]) : `<span>${rider.firstName} ${rider.lastName}</span>`;
+            const arr = [rider.nation, rider.city, rider.license, rider.club];
+            const filtered = arr.filter(v => v);
+            const additional = `<span class="font-light">${filtered.join("/")}</span>`;
+            v = `${v}<br>${additional}`;
+            
+            currentRider.children("td:nth-child(4)").html(v);
+
             const nation = rider.nation || country;
             const url = `/flags/${nation}.bmp`;
             currentRider.children("td:nth-child(5)").css("background", `#232323 url('${url}') center no-repeat`).css("background-size", "contain");
@@ -1230,6 +1267,7 @@ $(function() {
     }
 
     function addRow(rowData, container, isData, classes, horse, rider, swapNumAndRank, hideRank) {
+
         if (!rowData) { return; }
         const row = $("<tr class=''></tr>");
         const cols = [];
