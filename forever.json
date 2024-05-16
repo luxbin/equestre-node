@@ -4,7 +4,7 @@
   "append": true,
   "watch": false,
   "script": "push_server.js",
-  "sourceDir": "/opt/equestre_node",
-  "workingDir": "/opt/equestre_node"
+  "sourceDir": "/root/projects/equestre-node-2.1",
+  "workingDir": "/root/projects/equestre-node-2.1"
  }
 ]
