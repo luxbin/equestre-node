@@ -35,6 +35,7 @@ div.logo {
     padding-top: 60px;
     padding-left: 5px;
     font-size: 0.8em;
+    cursor: pointer;
 }
 
 div.pagelink {
@@ -380,4 +381,13 @@ td p {
 }
 .disp-ico img {
     width: 25px;
+}
+
+.weratv {
+    text-decoration: none !important;
+    color: white;   
+}
+
+.weratv:hover {
+    color: #d8d8d8;
 }

@@ -1248,7 +1248,8 @@ $(function() {
                     v = `<span>${horse.name}</span>`;
                     const arr = [horse.passport, horse.gender, horse.owner, horse.father, horse.mother, horse.fatherOfMother, horse.signalementLabel];
                     const filtered = arr.filter(v => v);
-                    if (arr.length <= filtered.length + 2) {
+                    //if (arr.length <= filtered.length + 2) 
+                    {
                         const additional = `<span class="font-light">${filtered.join("/")}</span>`;
                         v = `${v}<br>${additional}`;
                     }
@@ -1257,7 +1258,8 @@ $(function() {
                     v = `<span>${rider.firstName} ${rider.lastName}</span>`;
                     const arr = [rider.nation, rider.city, rider.license, rider.club];
                     const filtered = arr.filter(v => v);
-                    if (arr.length <= filtered.length + 2) {
+                    //if (arr.length <= filtered.length + 2) 
+                    {
                         const additional = `<span class="font-light">${filtered.join("/")}</span>`;
                         v = `${v}<br>${additional}`;
                     }
@@ -1522,4 +1524,8 @@ $(document).ready(() => {
     lang = language.match(/(\w+)(-\w+)?/)[1];
     $("#lang").val(lang);
     localizeAll(lang);
+
+    $('.logo').click(function(){
+        location.href = "https://zeitmessungen.ch/"
+    });
 });

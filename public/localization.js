@@ -120,7 +120,7 @@ var localization = {
         JUMP: "SPRINGEN",
         CROSS: "CROSS",
         TOTAL: "TOTAL",
-        UNOFFICIAL: "ALLE RESULTATE SIND UNOFFIZIELL",
+        UNOFFICIAL: "ALLE RESULTATE SIND INOFFIZIELL", 
     },
     fr: {
         LIVE_EVENTS: 'Live Events',

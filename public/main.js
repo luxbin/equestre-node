@@ -345,4 +345,8 @@ $(document).ready(() => {
     lang = language.match(/(\w+)(-\w+)?/)[1];
     $("#lang").val(lang);
     localizeAll(lang);
+
+    $('.logo').click(function(){
+        location.href = "https://zeitmessungen.ch/"
+    });
 });
