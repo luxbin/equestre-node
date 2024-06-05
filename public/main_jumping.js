@@ -1200,7 +1200,10 @@ $(function() {
             const row = $("<tr class=''></tr>");
 
             for (let k = 0; k < cc_rankings[i].length; k ++) {
-                let td = $(`<td>${cc_rankings[i][k]}</td>`);
+                
+                let v = cc_rankings[i][k];
+                if (k == 0) v = `${v}.`;
+                let td = $(`<td>${v}</td>`);
 
                 if (k == 0)
                     td.addClass("col-rank text-center bg-white text-color-black px-02");
